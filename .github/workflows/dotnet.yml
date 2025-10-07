@@ -14,6 +14,8 @@ jobs:
   build:
 
     runs-on: tsvi-runners
+    env:
+      DOTNET_INSTALL_DIR: /runner/_work/dotnet
 
     steps:
     - uses: actions/checkout@v4
@@ -21,7 +23,6 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-        install-dir: /runner/_work/dotnet
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
