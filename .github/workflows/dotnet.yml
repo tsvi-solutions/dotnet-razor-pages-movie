@@ -1,7 +1,4 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: .NET
+name: .NET Matrix Test
 
 on:
   push:
@@ -12,8 +9,13 @@ on:
 
 jobs:
   build:
-
     runs-on: tsvi-runners
+    strategy:
+      matrix:
+        project:
+          - src/ProjectA
+          - src/ProjectB
+          - src/ProjectC
     env:
       DOTNET_INSTALL_DIR: /runner/_work/dotnet
 
@@ -25,6 +27,6 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ${{ matrix.project }}
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ${{ matrix.project }} --no-restore
