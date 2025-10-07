@@ -1,32 +1,16 @@
-name: .NET Matrix Test
+name: ARC Parallel Test
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
-  build:
+  test:
     runs-on: tsvi-runners
     strategy:
       matrix:
-        project:
-          - src/ProjectA
-          - src/ProjectB
-          - src/ProjectC
-    env:
-      DOTNET_INSTALL_DIR: /runner/_work/dotnet
-
+        job: [one, two, three, four]
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET 8
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-
-    - name: Restore dependencies
-      run: dotnet restore ${{ matrix.project }}
-    - name: Build
-      run: dotnet build ${{ matrix.project }} --no-restore
+      - name: Show runner info
+        run: echo "Job ${{ matrix.job }} running on $RUNNER_NAME"
+      - name: .NET Info
+        run: dotnet --info
