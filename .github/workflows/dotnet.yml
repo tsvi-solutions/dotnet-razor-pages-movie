@@ -12,5 +12,9 @@ jobs:
     steps:
       - name: Show runner info
         run: echo "Job ${{ matrix.job }} running on $RUNNER_NAME"
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
       - name: .NET Info
         run: dotnet --info
