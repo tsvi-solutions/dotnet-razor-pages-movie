@@ -9,6 +9,9 @@ jobs:
     strategy:
       matrix:
         job: [one, two, three, four]
+    env:
+      DOTNET_INSTALL_DIR: /runner/_work/dotnet
+
     steps:
       - name: Show runner info
         run: echo "Job ${{ matrix.job }} running on $RUNNER_NAME"
