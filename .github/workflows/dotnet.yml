@@ -51,25 +51,32 @@ jobs:
           echo "🔧 Node.js Version: ${{ env.NODE_VERSION }}"
           echo "⚡ Runner OS: $RUNNER_OS"
           echo "🎯 Job Matrix: ${{ strategy.job-index }}/5"
+          echo "🏷️ Runner Label: tsvi-runners"
+          echo "⏰ Started at: $(date)"
           
       - name: 🏗️ Simulate Frontend Build
         run: |
           echo "📋 Installing dependencies for ${{ matrix.module }}..."
+          echo "  📦 npm install... (2.1s)"
           sleep 2
           echo "🔨 Building ${{ matrix.module }} application..."
           for i in {1..5}; do
-            echo "  ✅ Build step $i/5 completed"
+            echo "  ✅ Build step $i/5 completed (webpack/vite)"
             sleep 1
           done
+          echo "📊 Build metrics:"
+          echo "  📦 Bundle size: $((RANDOM % 200 + 800))KB"
+          echo "  ⚡ Build time: $((RANDOM % 30 + 45))s"
           echo "🎉 ${{ matrix.module }} build completed successfully!"
           
       - name: 🧪 Run Frontend Tests
         run: |
           echo "🔍 Running unit tests for ${{ matrix.module }}..."
-          echo "  ✅ Component tests: 156 passed"
-          echo "  ✅ Integration tests: 42 passed"
-          echo "  ✅ E2E tests: 18 passed"
-          echo "📊 Code coverage: 94.2%"
+          echo "  ✅ Component tests: $((RANDOM % 50 + 150)) passed"
+          echo "  ✅ Integration tests: $((RANDOM % 20 + 35)) passed"
+          echo "  ✅ E2E tests: $((RANDOM % 10 + 15)) passed"
+          echo "📊 Code coverage: $((RANDOM % 10 + 90)).$(($RANDOM % 9 + 1))%"
+          echo "🎯 Performance score: $((RANDOM % 10 + 90))/100"
 
   # 🎯 Job 6-10: Backend Services Pipeline
   backend-services:
@@ -93,6 +100,8 @@ jobs:
           echo "🔧 Building Backend Service: ${{ matrix.service }}"
           echo "📱 .NET Version: ${{ env.DOTNET_VERSION }}"
           echo "🏗️ Configuration: ${{ env.BUILD_CONFIGURATION }}"
+          echo "🐳 Container Runtime: Docker"
+          echo "⏰ Started at: $(date)"
           
       - name: ⚙️ Setup .NET Environment
         run: |
@@ -102,16 +111,18 @@ jobs:
           echo "  - .NET 8.0"
           echo "  - ASP.NET Core 8.0"
           echo "  - Entity Framework Core 8.0"
+          echo "🎯 Memory allocated: $((RANDOM % 2000 + 2000))MB"
           
       - name: 🔨 Build & Test Service
         run: |
           echo "🏗️ Building ${{ matrix.service }}..."
           sleep 3
           echo "🧪 Running service tests..."
-          echo "  ✅ Unit tests: 89 passed"
-          echo "  ✅ Integration tests: 34 passed"
-          echo "  ✅ Performance tests: 12 passed"
-          echo "📊 Test coverage: 91.7%"
+          echo "  ✅ Unit tests: $((RANDOM % 30 + 80)) passed"
+          echo "  ✅ Integration tests: $((RANDOM % 15 + 25)) passed"
+          echo "  ✅ Performance tests: $((RANDOM % 8 + 10)) passed"
+          echo "📊 Test coverage: $((RANDOM % 15 + 85)).$(($RANDOM % 9 + 1))%"
+          echo "🎯 API response time: $((RANDOM % 50 + 20))ms"
           echo "🎉 ${{ matrix.service }} ready for deployment!"
 
   # 🎯 Job 11-15: Infrastructure & Security Pipeline
@@ -136,6 +147,8 @@ jobs:
           echo "🏗️ Processing: ${{ matrix.component }}"
           echo "🔒 Security Level: ${{ env.SECURITY_LEVEL }}"
           echo "⚡ Infrastructure as Code Pipeline"
+          echo "☸️ Kubernetes API: Connected"
+          echo "⏰ Started at: $(date)"
           
       - name: 🔍 Security & Compliance Checks
         run: |
@@ -143,17 +156,19 @@ jobs:
           sleep 2
           echo "  ✅ Vulnerability scan: No critical issues"
           echo "  ✅ License compliance: All dependencies cleared"
-          echo "  ✅ SAST analysis: Security score 96/100"
+          echo "  ✅ SAST analysis: Security score $((RANDOM % 5 + 95))/100"
           echo "  ✅ Container security: Images hardened"
+          echo "  🔐 CVE database: Up to date"
           echo "🔐 Security validation completed!"
           
       - name: 🚀 Infrastructure Deployment
         run: |
           echo "🏗️ Deploying ${{ matrix.component }}..."
           for i in {1..4}; do
-            echo "  ⚡ Deployment phase $i/4..."
+            echo "  ⚡ Deployment phase $i/4... ($((RANDOM % 10 + 15))s)"
             sleep 1
           done
+          echo "📊 Resources created: $((RANDOM % 10 + 5))"
           echo "✅ ${{ matrix.component }} deployed successfully!"
 
   # 🎯 Job 16-20: AI/ML & Data Pipeline
@@ -180,6 +195,8 @@ jobs:
           echo "🐍 Python Version: ${{ env.PYTHON_VERSION }}"
           echo "🎮 GPU Enabled: ${{ env.GPU_ENABLED }}"
           echo "🧠 ML Framework: ${{ env.ML_FRAMEWORK }}"
+          echo "💾 CUDA Available: $(echo "true")"
+          echo "⏰ Started at: $(date)"
           
       - name: 🧠 AI/ML Processing
         run: |
@@ -187,24 +204,29 @@ jobs:
           sleep 3
           case "${{ matrix.pipeline }}" in
             "data-ingestion")
-              echo "  📊 Processing 2.4TB of training data..."
-              echo "  ✅ Data validation: 99.8% clean"
+              echo "  📊 Processing $((RANDOM % 3 + 2)).$((RANDOM % 9))TB of training data..."
+              echo "  ✅ Data validation: $((RANDOM % 2 + 99)).$((RANDOM % 9))% clean"
+              echo "  📈 Records processed: $((RANDOM % 1000000 + 5000000))"
               ;;
             "model-training")
-              echo "  🎯 Training neural network (1M+ parameters)..."
-              echo "  ✅ Training accuracy: 94.7%"
+              echo "  🎯 Training neural network ($((RANDOM % 5 + 1))M+ parameters)..."
+              echo "  ✅ Training accuracy: $((RANDOM % 5 + 92)).$((RANDOM % 9))%"
+              echo "  🔄 Epochs completed: $((RANDOM % 50 + 100))/150"
               ;;
             "feature-engineering")
-              echo "  🔧 Generating 847 features..."
+              echo "  🔧 Generating $((RANDOM % 200 + 800)) features..."
               echo "  ✅ Feature importance calculated"
+              echo "  📊 Dimensionality reduction: $((RANDOM % 30 + 15))%"
               ;;
             "model-validation")
-              echo "  🧪 Cross-validation (k=10)..."
-              echo "  ✅ Validation score: 92.3%"
+              echo "  🧪 Cross-validation (k=$((RANDOM % 5 + 8)))..."
+              echo "  ✅ Validation score: $((RANDOM % 8 + 90)).$((RANDOM % 9))%"
+              echo "  📈 F1-Score: 0.$((RANDOM % 100 + 850))"
               ;;
             "ml-deployment")
               echo "  🚀 Deploying model to production..."
               echo "  ✅ Model served via REST API"
+              echo "  ⚡ Inference time: $((RANDOM % 50 + 10))ms"
               ;;
           esac
           echo "🎉 ${{ matrix.pipeline }} completed successfully!"
@@ -225,17 +247,25 @@ jobs:
           echo "  ⚡ Total Build Time: ~5 minutes"
           echo "  🎯 Demo Mode: ${{ inputs.demo_mode }}"
           echo "  🌍 Environment: ${{ inputs.environment }}"
+          echo "  🏷️ Runner Label: tsvi-runners"
           echo ""
           echo "🏗️ COMPONENTS PROCESSED:"
-          echo "  📱 Frontend Modules: 5"
-          echo "  🔧 Backend Services: 5" 
-          echo "  🛡️ Infrastructure & Security: 5"
-          echo "  🤖 AI/ML Pipelines: 5"
+          echo "  📱 Frontend Modules: 5 (React, Vue, Angular, Svelte, Next.js)"
+          echo "  🔧 Backend Services: 5 (.NET 8, APIs, ML Services)" 
+          echo "  🛡️ Infrastructure & Security: 5 (Terraform, Security, Helm)"
+          echo "  🤖 AI/ML Pipelines: 5 (Data, Training, Validation, Deployment)"
           echo ""
           echo "🎯 ARC RUNNERS PERFORMANCE:"
-          echo "  ⚡ Average Job Duration: 4.2 minutes"
+          echo "  ⚡ Average Job Duration: $((RANDOM % 60 + 240)) seconds"
           echo "  🚀 Peak Concurrent Jobs: 20"
-          echo "  📈 Resource Utilization: 87%"
+          echo "  📈 Resource Utilization: $((RANDOM % 15 + 80))%"
+          echo "  💾 Total Memory Used: $((RANDOM % 20 + 40))GB"
           echo "  🎪 Demo Completed Successfully!"
           echo ""
+          echo "🌟 KUBERNETES CLUSTER STATS:"
+          echo "  ☸️ Nodes utilized: $((RANDOM % 5 + 3))"
+          echo "  📦 Pods created: 21 (20 jobs + 1 summary)"
+          echo "  🔄 Auto-scaling events: $((RANDOM % 3 + 1))"
+          echo ""
           echo "Thank you for watching the ARC Parallel Demo! 🎉"
+          echo "Visit: https://github.com/tsviz/arc-config-mcp for more info"
