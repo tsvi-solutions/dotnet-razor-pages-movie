@@ -260,14 +260,18 @@ jobs:
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:latest # use the docker layer caching to speed up the docker image build process
           cache-to: type=inline
 
-  deploy:
-    needs: [build-and-publish-docker-image] # this job needs build-and-publish-docker-image job as a requirement to run
-    uses: ./.github/workflows/cd.yml
-    with:
-      # with tag from the build-and-publish-docker-image job in the output_tags step
-      image_tag: "${{ needs.build-and-publish-docker-image.outputs.image_tag }}"
-      debug: "${{ github.event.inputs.debug_deployment }}"
-    secrets: inherit
+  # deploy:
+  #   needs: [build-and-publish-docker-image] # this job needs build-and-publish-docker-image job as a requirement to run
+  #   permissions:
+  #     actions: read
+  #     contents: read
+  #     id-token: write
+  #   uses: ./.github/workflows/cd.yml
+  #   with:
+  #     # with tag from the build-and-publish-docker-image job in the output_tags step
+  #     image_tag: "${{ needs.build-and-publish-docker-image.outputs.image_tag }}"
+  #     debug: "${{ github.event.inputs.debug_deployment }}"
+  #   secrets: inherit
   
   runner-indexes: # job to generate the runner indexes for the unit-parallel-tests job
     runs-on: ubuntu-latest
