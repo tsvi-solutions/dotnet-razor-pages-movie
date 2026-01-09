@@ -45,12 +45,18 @@ jobs:
           runner: tsvi-linux8cores
         - language: javascript-typescript
           build-mode: none
-          runner: ubuntu-latest
+          runner: win_arm_16core_64gb
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4.2.2
 
+    - name: Runner Telemetry Action
+      uses: tsviz/actions-runner-telemetry@v1.7.1
+      with:
+        upload-artifacts: true
+        artifact-name: telemetry-reports-${{ matrix.runner }}
+    
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
       with:
